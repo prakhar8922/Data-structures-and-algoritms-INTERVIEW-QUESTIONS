@@ -21,7 +21,8 @@ int main()
 {
     int arr[] = {1, 5, 7, -1};
     int sum = 6;
-    int n = sizeof(arr) / sizeof(int);
+   int n = sizeof(arr) / sizeof(int);
     cout<<Nopairs(arr,n,sum);
     return 0;
 }
+//time complexity O(n^2) , can be done in O(n)with map concept

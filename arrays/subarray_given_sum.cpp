@@ -30,7 +30,7 @@ class Solution
                 {
                     //subtracting the element from left i.e., arr[start]
                     currsum -= arr[start];
-                    ++start;
+                    start++;
                 }
                 
                 //now if current sum becomes equal to given number, we store 
