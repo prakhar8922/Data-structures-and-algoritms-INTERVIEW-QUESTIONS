@@ -1,4 +1,21 @@
-//{ Driver Code Starts
+
+
+// A(X) for positive integer X is the sum of factorials of its digits. For example, A(154) = 1! + 5! + 4!= 145.
+// Given a number N, find the minimum number X such that A(X) = N. You have to return a list of digits (without leading zeros) which represent the number X.
+
+// Example 1:
+
+// Input: N = 40321
+// Output: 18
+// Explanation: A(18)=1!+ 8! =40321
+// Note that A(80) and A(81) are also
+// 40321, But 18 is the smallest
+// number.
+// Example 2:
+
+// Input: N = 5040
+// Output: 7
+// Explanation: A(7) = 7! = 5040.
 #include <bits/stdc++.h>
 using namespace std;
 
