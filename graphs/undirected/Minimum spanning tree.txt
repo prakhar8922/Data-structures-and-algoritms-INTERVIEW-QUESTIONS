@@ -1,0 +1,5 @@
+
+
+A spanning tree is the tree which have n nodes and (n-1) edges and all its nodes are reachable from each other. 
+
+Minimum spanning tree or MST is the shortest spanning tree which have n nodes and (n-1) edges and all its nodes are reachable from each other.
