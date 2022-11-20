@@ -11,10 +11,11 @@ public:
         parent.resize(n + 1);
         size.resize(n + 1);
         for (int i = 0; i <= n; i++)
-        {
-            parent[i] = i;
-            size[i] = 1;
-        }
+            Rotate Array
+            {
+                parent[i] = i;
+                size[i] = 1;
+            }
     }
     int findUPar(int node)
     { // findUpar=find ultimate parent of node
