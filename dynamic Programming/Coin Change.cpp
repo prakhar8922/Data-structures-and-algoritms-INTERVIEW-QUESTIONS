@@ -1,68 +1,88 @@
-// Given an integer array coins[ ] of size N representing different denominations of currency and an integer sum, find the number of ways you can make sum by using different combinations from coins[ ].
-// Note: Assume that you have an infinite supply of each type of coin.
+
+
+// You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money.
+
+// Return the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.
+
+// You may assume that you have an infinite number of each kind of coin.
 
 // Example 1:
 
-// Input:
-// sum = 4 ,
-// N = 3
-// coins[] = {1,2,3}
-// Output: 4
-// Explanation: Four Possible ways are:
-// {1,1,1,1},{1,1,2},{2,2},{1,3}.
+// Input: coins = [1,2,5], amount = 11
+// Output: 3
+// Explanation: 11 = 5 + 5 + 1
 // Example 2:
 
-// Input:
-// Sum = 10 ,
-// N = 4
-// coins[] ={2,5,3,6}
-// Output: 5
-// Explanation: Five Possible ways are:
-// {2,2,2,2,2}, {2,2,3,3}, {2,2,6}, {2,3,5}
-// and {5,5}.
+// Input: coins = [2], amount = 3
+// Output: -1
+// Example 3:
 
-// Your Task:
-// You don't need to read input or print anything. Your task is to complete the function count() which accepts an array coins[ ] its size N and sum as input parameters and returns the number of ways to make change for given sum of money.
-
-// Expected Time Complexity: O(sum*N)
-// Expected Auxiliary Space: O(sum)
+// Input: coins = [1], amount = 0
+// Output: 0
 
 // Constraints:
-// 1 <= sum, N <= 103
 
-#include <bits/stdc++.h>
-using namespace std;
+// 1 <= coins.length <= 12
+// 1 <= coins[i] <= 231 - 1
+// 0 <= amount <= 104
 
-// } Driver Code Ends
 class Solution
 {
 public:
-    long long int count(int coins[], int n, int sum)
+    int dp[13][10001];
+    int lowestCoin(vector<int> &coins, int amount, int n)
     {
-
-        long long int dp[n + 1][sum + 1];
-        for (int i = 0; i <= n; i++)
+        for (int i = 0; i < n + 1; i++)
         {
-            for (int j = 0; j <= sum; j++)
+            for (int j = 0; j < amount + 1; j++)
             {
-                if (i == 0)
-                    dp[i][j] = 0;
-                if (j == 0)
-                    dp[i][j] = 1;
+                if (i == 0 or j == 0)
+                {
+                    dp[i][j] = (j == 0) ? 0 : INT_MAX - 1; // if j=0 dp[i][j]=0 else int max
+                }
             }
         }
-        for (int i = 1; i <= n; i++)
+        for (int i = 1; i < n + 1; i++)
         {
-            for (int j = 1; j <= sum; j++)
+            for (int j = 1; j < amount + 1; j++)
             {
-                if (coins[i - 1] <= j)
+                if (coins[i - 1] > j)
                 {
-                    dp[i][j] = dp[i][j - coins[i - 1]] + dp[i - 1][j];
+                    dp[i][j] = dp[i - 1][j]; // if the value of coin is > than amount ignore it
                 }
                 else
-                    dp[i][j] = dp[i - 1][j];
+                    dp[i][j] = min(dp[i - 1][j], 1 + dp[i][j - coins[i - 1]]);
             }
         }
-        return dp[n][sum];
+        return dp[n][amount];
+    }
+    int coinChange(vector<int> &coins, int amount)
+    {
+        int ans = lowestCoin(coins, amount, coins.size());
+        return (ans == INT_MAX - 1) ? -1 : ans;
     }
 };
+
+// int dp[12 + 1][10000 + 1];
+
+//     int findLowestCoins(vector<int> &coins, int arraySize, int amount) {
+//         for (int i = 0; i < arraySize + 1; i++)
+//             for (int j = 0; j < amount + 1; j++)
+//                 if (i == 0 || j == 0)
+//                     dp[i][j] = (j == 0) ? 0 : INT_MAX - 1;
+
+//         for (int i = 1; i < arraySize + 1; i++) {
+//             for (int j = 1; j < amount + 1; j++) {
+//                 if (coins[i - 1] > j)
+//                     dp[i][j] = 0 + dp[i - 1][j];
+//                 else
+//                     dp[i][j] = min(0 + dp[i - 1][j], 1 + dp[i][j - coins[i - 1]]);
+//             }
+//         }
+
+//         return dp[arraySize][amount];
+//     }
+
+//     int coinChange(vector<int>& coins, int amount) {
+//         int res = findLowestCoins(coins, coins.size(), amount);
+//         return (res == INT_MAX - 1) ? -1 : res;
