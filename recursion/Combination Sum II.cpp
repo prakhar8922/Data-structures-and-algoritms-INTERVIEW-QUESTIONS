@@ -41,7 +41,7 @@ public:
         }
         for (int i = ind; i < arr.size(); i++)
         {
-            if (i > ind && arr[i] == arr[i - 1])
+            if (i > ind && arr[i] == arr[i - 1]) // if i==index then there is no element in the ds and hence we do insert that element even if the next element is same that of curr element as the ds was empty till now
                 continue;
             if (arr[i] > target)
                 break;
