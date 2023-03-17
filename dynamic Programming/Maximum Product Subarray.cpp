@@ -36,21 +36,19 @@ using namespace std;
 class Solution
 {
 public:
-    // Function to find maximum product subarray
-    long long maxProduct(vector<int> arr, int n)
+    int maxProduct(vector<int> &nums)
     {
-        long long maxProd = arr[0];
-        long long maxVal = arr[0];
-        long long minVal = arr[0];
-        for (int i = 1; i < n; i++)
+        int ans = INT_MIN;
+        int maxProd = 1;
+        int minProd = 1; // The reason for tracking both the maximum and minimum products is that a negative number can make a small product become large, and a large product become small.
+        for (int i = 0; i < nums.size(); i++)
         {
-            if (arr[i] < 0)
-                swap(maxVal, minVal);
-            // we multiply 1ll so that the term arr[i]*1ll becomes of long long type and there is not integer overflow
-            maxVal = max(arr[i] * 1ll, maxVal * arr[i]);
-            minVal = min(arr[i] * 1ll, minVal * arr[i]);
-            maxProd = max(maxProd, maxVal);
+            if (nums[i] < 0)
+                swap(maxProd, minProd);
+            maxProd = max(maxProd * nums[i], nums[i]);
+            minProd = min(minProd * nums[i], nums[i]);
+            ans = max(ans, maxProd);
         }
-        return maxProd;
+        return ans;
     }
 };
