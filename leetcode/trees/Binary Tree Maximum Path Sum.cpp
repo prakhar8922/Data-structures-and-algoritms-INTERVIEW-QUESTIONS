@@ -22,24 +22,27 @@
 
 class Solution
 {
-
-private:
-    int mx = INT_MIN;
-    int mxSum(TreeNode *root)
+public:
+    int mxpathsum(TreeNode *root, int &mx)
     {
         if (!root)
             return 0;
-        int l = max(mxSum(root->left), 0);
-        int r = max(mxSum(root->right), 0);
-        int currsum = root->val + l + r;
-        mx = max(mx, currsum);
-        return root->val + max(l, r); // we will only take the max path between left and right path
+        // calculate the maximum path sum of the left subtree
+        int leftpathsum = max(0, mxpathsum(root->left, mx));
+        // calculate the maximum path sum of the right subtree
+        int rightpathsum = max(0, mxpathsum(root->right, mx));
+        // calculate the maximum path sum that passes through the current node
+        int pathsum = root->val + leftpathsum + rightpathsum;
+        // update the maximum path sum seen so far (stored in mx)
+        mx = max(mx, pathsum);
+        // return the maximum path sum that can be extended from the current node
+        return max(leftpathsum, rightpathsum) + root->val;
     }
 
-public:
     int maxPathSum(TreeNode *root)
     {
-        mxSum(root);
+        int mx = INT_MIN;
+        mxpathsum(root, mx);
         return mx;
     }
 };
