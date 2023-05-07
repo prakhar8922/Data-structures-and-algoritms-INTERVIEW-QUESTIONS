@@ -39,35 +39,22 @@
 // 1 <= Number of nodes <= 105
 // 1 <= Value of nodes<= 105
 
-int findCeil(Node *root, int key)
+int findCeil(Node *root, int input)
 {
-    if (root == NULL)
-        return -1;
-
-    // Code here
-
-    int res = 0;
-
-    while (root != NULL)
-
+    int ans = -1;
+    while (root)
     {
-
-        if (root->data == key)
-            return root->data;
-
-        else if (root->data < key)
-
+        if (root->data < input)
+        {
             root = root->right;
-
+        }
         else
         {
-
-            res = root->data;
-
+            ans = root->data;
             root = root->left;
         }
     }
+    return ans;
 
-    return res;
     // Your code here
 }
