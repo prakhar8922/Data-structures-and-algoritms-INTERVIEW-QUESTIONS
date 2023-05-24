@@ -42,3 +42,27 @@ public:
         return ans;
     }
 };
+
+
+class Solution {
+public:
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        unordered_map<int,int>mp;
+        vector<vector<int>>eleFreq(nums.size()+1);// This vector will act as a bucket where elements will be grouped based on their frequencies.
+        vector<int>ans;
+        for(auto&it:nums){
+            mp[it]++;
+        }
+        for(auto&it:mp){// Add the element it.first to the bucket eleFreq at index it.second. By doing this, elements with the same frequency are grouped together.
+            eleFreq[it.second].push_back(it.first);
+        }
+        for(int i=nums.size();i>=0;i--){
+            for(auto&num:eleFreq[i]){//Within each frequency bucket, iterate over each element num. This ensures that elements with higher frequencies are considered first.
+                ans.push_back(num);
+                k--;
+                if(k==0)return ans;
+            }
+        }
+        return {};
+    }
+};
